@@ -1,6 +1,10 @@
 language: node_js
 node_js:
 - '8.9.0'
+before_script:
+- npm install
+script:
+- npm run test:unit
 deploy:
   provider: heroku
   api_key:
