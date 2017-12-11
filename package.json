@@ -16,7 +16,11 @@
       "react"
     ]
   },
-  "jest": {},
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/test/unit/components/globals.js"
+    ]
+  },
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
