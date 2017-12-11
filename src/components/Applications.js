@@ -7,7 +7,7 @@ class Applications extends Component {
     this.state = {
       applications: [
 	{id: 1, name: 'SomeApp'},
-	{id: 2, name: 'OtherApp'},
+	{id: 2, name: 'OtherApp'}
       ]
     }
   }
