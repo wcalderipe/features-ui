@@ -20,14 +20,14 @@ describe('features client', () => {
     })
 
     it('calls http client with given options', async () => {
-      const expectedURL = 'http://localhost:3000/'
+      const expectedURL = 'https://features-api.herokuapp.com/applications'
       const expectedOptions = {
 	headers: {
 	  'content-type': 'application/json'
 	}
       }
 
-      const response = await fetch()
+      const response = await fetch('applications')
 
       sinon.assert.calledWith(axios.get, expectedURL, expectedOptions)
     })  
