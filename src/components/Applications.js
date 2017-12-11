@@ -1,15 +1,18 @@
 import React, {Component} from 'react'
+import {fetch} from '../clients/features'
 
 class Applications extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      applications: [
-	{id: 1, name: 'SomeApp'},
-	{id: 2, name: 'OtherApp'}
-      ]
+      applications: []
     }
+  }
+
+  async componentWillMount () {
+    const response = await fetch('applications')
+    this.setState({applications: response.data})
   }
 
   renderRow (application) {
