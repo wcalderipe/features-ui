@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 import {fetch} from '../clients/features'
 
 class Applications extends Component {
@@ -10,8 +11,9 @@ class Applications extends Component {
     }
   }
 
-  async componentWillMount () {
+  async componentDidMount () {
     const response = await fetch('applications')
+
     this.setState({applications: response.data})
   }
 
@@ -20,7 +22,11 @@ class Applications extends Component {
 
     return (
       <tr key={id}>
-	<td>{name}</td>
+	<td>
+	  <Link to={`/applications/${id}`}>
+	    {name}
+	  </Link>
+	</td>
       </tr>
     ) 
   }
@@ -53,6 +59,4 @@ class Applications extends Component {
 }
 
 export default Applications
-
-
 
