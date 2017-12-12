@@ -11,16 +11,21 @@ describe('Applications component', () => {
     sandbox.restore()
   })
 
-  it('calls features client when mounting', async () => {
+  it('calls features client when mounting', () => {
     const expectApplications = [
       {id: 1, name: 'SomeApp'}
     ]
-    sandbox.stub(client, 'fetch').resolves({
-      data: expectApplications
-    }) 
+    const promise = Promise.resolve({data: expectApplications})
+    sandbox.stub(client, 'fetch').returns(promise)
     const wrapper = shallow(<Applications />)
-    await wrapper.instance().componentDidMount()
 
-    expect(wrapper.state('applications')).toEqual(expectApplications)
+    return promise
+      .then(() => {
+	expect(wrapper.state()).toHaveProperty('applications')
+
+	wrapper.update()	
+      }).then(() => {
+	expect(wrapper.state('applications')).toEqual(expectApplications)
+      })
   })
 })
