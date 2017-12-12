@@ -11,22 +11,22 @@ describe('Application component', () => {
     sandbox.restore()
   })
 
-  it('calls features client with application id from url', () => {
-    sandbox.stub(client, 'fetch').resolves({
-      data: {
-	id: 1,
-	name: 'SomeApp'
-      }
-    }) 
-
+  it('calls features client with application id from url', async () => {
     const props = {
       match: {
 	params: {applicationId: '1'}
       }
     }
-
+    const expectApplication = {
+      id: 1,
+      name: 'SomeApp'
+    }
+    sandbox.stub(client, 'fetch').resolves({
+      data: expectApplication
+    }) 
     const wrapper = shallow(<Application {...props} />)
+    await wrapper.instance().componentDidMount()
 
-    sinon.assert.calledWith(client.fetch, 'applications/1')
+    expect(wrapper.state('application')).toEqual(expectApplication)
   })
 })

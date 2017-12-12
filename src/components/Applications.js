@@ -60,5 +60,3 @@ class Applications extends Component {
 
 export default Applications
 
-
-

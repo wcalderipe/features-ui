@@ -11,13 +11,16 @@ describe('Applications component', () => {
     sandbox.restore()
   })
 
-  it('calls features client when mounting', () => {
+  it('calls features client when mounting', async () => {
+    const expectApplications = [
+      {id: 1, name: 'SomeApp'}
+    ]
     sandbox.stub(client, 'fetch').resolves({
-      data: []
+      data: expectApplications
     }) 
-    
-    shallow(<Applications />)
+    const wrapper = shallow(<Applications />)
+    await wrapper.instance().componentDidMount()
 
-    sinon.assert.calledWith(client.fetch, 'applications')
+    expect(wrapper.state('applications')).toEqual(expectApplications)
   })
 })
