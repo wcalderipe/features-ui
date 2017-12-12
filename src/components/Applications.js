@@ -24,9 +24,7 @@ class Applications extends Component {
     return (
       <tr key={id}>
 	<td>
-	  <Link to={`/applications/${id}`}>
-	    {name}
-	  </Link>
+	  <Link to={`/applications/${id}`}>{name}</Link>
 	</td>
       </tr>
     ) 

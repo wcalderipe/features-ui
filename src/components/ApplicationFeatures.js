@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Link} from 'react-router-dom'
 
 import {fetch} from '../clients/features'
 
@@ -23,7 +24,9 @@ class ApplicationFeatures extends Component {
 
     return (
       <tr key={id}>
-	<td>{name}</td>
+	<td>
+	  <Link to={`/features/${id}`}>{name}</Link>
+	</td>
       </tr>
     )
   }
