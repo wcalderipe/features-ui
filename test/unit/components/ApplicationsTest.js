@@ -4,7 +4,7 @@ import {React, shallow} from './testSetup'
 import * as client from '../../../src/clients/features'
 import Applications from '../../../src/components/Applications'
 
-describe.only('Applications component', () => {
+describe('Applications component', () => {
   const sandbox = sinon.sandbox.create() 
 
   afterEach(() => {

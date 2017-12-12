@@ -11,8 +11,9 @@ class Applications extends Component {
     }
   }
 
-  async componentWillMount () {
+  async componentDidMount () {
     const response = await fetch('applications')
+
     this.setState({applications: response.data})
   }
 

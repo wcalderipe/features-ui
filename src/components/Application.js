@@ -1,15 +1,20 @@
 import React, {Component} from 'react'
+import {fetch} from '../clients/features'
 
 class Application extends Component {
   constructor (props) {
     super(props)
-
+    
     this.state = {
-      application: {
-	id: 1,
-	name: 'SomeApp'
-      }
+      application: {}
     }
+  }
+
+  async componentDidMount () {
+    const {applicationId} = this.props.match.params
+    const response = await fetch(`applications/${applicationId}`)
+
+    this.setState({application: response.data})
   }
 
   render () {
