@@ -1,5 +1,7 @@
 import React, {Component} from 'react'
+
 import {fetch} from '../clients/features'
+import ApplicationFeatures from './ApplicationFeatures'
 
 class Application extends Component {
   constructor (props) {
@@ -18,6 +20,8 @@ class Application extends Component {
   }
 
   render () {
+    const {applicationId} = this.props.match.params
+
     return (
       <div className='container'>
 	<div className='row'>
@@ -25,10 +29,7 @@ class Application extends Component {
 	    <h1 className='page-header'>Application: {this.state.application.name}</h1>
 	  </div>
 	</div>
-	<div className='row'> 
-	  <div className='col-md-12'>
-	  </div> 
-	</div> 
+	<ApplicationFeatures applicationId={applicationId} />
       </div>
     )
   }

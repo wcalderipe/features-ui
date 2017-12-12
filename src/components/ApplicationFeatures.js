@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+
 import {fetch} from '../clients/features'
 
 class ApplicationFeatures extends Component {
