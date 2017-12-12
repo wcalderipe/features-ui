@@ -6,27 +6,29 @@ import Application from '../../../src/components/Application'
 
 describe('Application component', () => {
   const sandbox = sinon.sandbox.create() 
+  const props = {
+    match: {
+      params: {applicationId: '1'}
+    }
+  }
 
   afterEach(() => {
     sandbox.restore()
   })
 
-  it('calls features client with application id from url', async () => {
-    const props = {
-      match: {
-	params: {applicationId: '1'}
-      }
-    }
+  it('fetches feature by id after component mount', async () => {
     const expectApplication = {
       id: 1,
       name: 'SomeApp'
     }
-    sandbox.stub(client, 'fetch').resolves({
-      data: expectApplication
-    }) 
+    const fetchPromise = Promise.resolve({data: expectApplication})
+    sandbox.stub(client, 'fetch').returns(fetchPromise)
     const wrapper = shallow(<Application {...props} />)
-    await wrapper.instance().componentDidMount()
 
+    await fetchPromise
+
+    expect(wrapper.state()).toHaveProperty('application')
+    wrapper.update()	
     expect(wrapper.state('application')).toEqual(expectApplication)
   })
 })
