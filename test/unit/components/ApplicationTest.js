@@ -3,7 +3,6 @@ import {React, shallow} from './testSetup'
 
 import * as client from '../../../src/clients/features'
 import Application from '../../../src/components/Application'
-import ApplicationFeatures from '../../../src/components/ApplicationFeatures'
 
 describe('Application component', () => {
   const sandbox = sinon.sandbox.create() 

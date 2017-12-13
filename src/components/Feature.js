@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 
 import {fetch} from '../clients/features'
+import FeatureParameters from './FeatureParameters'
 
 class Feature extends Component {
   constructor (props) {
@@ -28,6 +29,7 @@ class Feature extends Component {
 	    <h1 className='page-header'>Feature: {this.state.feature.name}</h1>
 	  </div>
 	</div>
+	<FeatureParameters featureId={featureId} />
       </div>
     )
   }
