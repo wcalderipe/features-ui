@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 
-import {post} from '../clients/features'
+import {post} from '../clients/api'
 
 class ParameterForm extends Component {
   constructor(props) {

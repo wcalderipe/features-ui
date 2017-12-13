@@ -1,7 +1,7 @@
 import sinon from 'sinon'
 import {React, shallow} from './testSetup'
 
-import * as client from '../../../src/clients/features'
+import * as client from '../../../src/clients/api'
 import Feature from '../../../src/components/Feature'
 
 describe('Feature component', () => {

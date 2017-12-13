@@ -1,8 +1,8 @@
 import sinon from 'sinon'
 import axios from 'axios'
-import {fetch, post, destroy} from '../../../src/clients/features'
+import {fetch, post, destroy} from '../../../src/clients/api'
 
-describe('features client', () => {
+describe('api client', () => {
   const sandbox = sinon.sandbox.create()
 
   afterEach(() => {

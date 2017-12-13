@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 
-import {fetch} from '../clients/features'
+import {fetch} from '../clients/api'
 
 class FeatureParameters extends Component {
   constructor (props) {
