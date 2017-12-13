@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 
 import {fetch} from '../clients/features'
+import ParameterForm from './ParameterForm'
 
 class Applications extends Component {
   constructor (props) {

@@ -30,8 +30,13 @@ class FeatureParameters extends Component {
   }
 
   render () {
+    const {featureId} = this.props
+
     return (
       <div className='row'> 
+	<div className='col-md-12'>
+	  <Link to={`/features/${featureId}/parameters/new`}>Add new parameter</Link>
+	</div>
 	<div className='col-md-12'>
 	  <table className='table'>
 	      <thead>
