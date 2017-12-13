@@ -37,6 +37,14 @@ describe('FeatureParameters component', () => {
     sandbox.restore()
   })
 
+  it('renders a link to parameter form page', () => {
+    const wrapper = shallow(<FeatureParameters {...props} />)
+    const link = wrapper.find('Link')
+
+    expect(link.exists()).toEqual(true)
+    expect(link.prop('to')).toEqual('/features/1/parameters/new')
+  })
+  
   it('fetches parameters by feature id after mount', async () => {
     const wrapper = shallow(<FeatureParameters {...props} />)
 
