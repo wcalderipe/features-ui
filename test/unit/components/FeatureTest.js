@@ -34,5 +34,20 @@ describe('Feature component', () => {
     wrapper.update()	
     expect(wrapper.state('feature')).toEqual(expectedFeature)
   })
+
+  it('renders FeatureParameters with given props', async () => {
+    const wrapper = shallow(<Feature {...props} />)
+    const expectedProps = {
+      featureId: '1'
+    }
+
+    await fetchPromise
+    wrapper.update()	
+
+    const parameters = wrapper.find('FeatureParameters')
+
+    expect(parameters.exists()).toEqual(true)
+    expect(parameters.props()).toEqual(expectedProps)
+  })
 })
 
