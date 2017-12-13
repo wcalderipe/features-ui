@@ -10,7 +10,9 @@ const fetch = (resource) => axios.get(url(resource), {headers})
 
 const post = (resource, payload) => axios.post(url(resource), payload, {headers})
 
+const destroy = (resource) => axios.delete(url(resource))
+
 const url = (resource) => `${BASE_URL}/${resource}`
 
-export {fetch, post}
+export {fetch, post, destroy}
 

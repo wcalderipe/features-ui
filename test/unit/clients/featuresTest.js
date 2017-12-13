@@ -1,6 +1,6 @@
 import sinon from 'sinon'
 import axios from 'axios'
-import {fetch, post} from '../../../src/clients/features'
+import {fetch, post, destroy} from '../../../src/clients/features'
 
 describe('features client', () => {
   const sandbox = sinon.sandbox.create()
@@ -50,6 +50,22 @@ describe('features client', () => {
       const response = await post('applications', payload)
 
       sinon.assert.calledWith(axios.post, expectedURL, payload, expectedOptions)
+    })
+  })
+
+  describe('destroy', () => {
+    beforeEach(() => {
+      sandbox.stub(axios, 'delete').resolves({
+	status: 204
+      })
+    })
+
+    it('calls client with full api url', async () => {
+      const expectedURL = 'https://features-api.herokuapp.com/applications/99'
+
+      const response = await destroy('applications/99')
+
+      sinon.assert.calledWith(axios.delete, expectedURL)
     })
   })
 })
