@@ -6,11 +6,11 @@ const headers = {
   'content-type': 'application/json'
 }
 
-const fetch = (resource) => {
-  const url = `${BASE_URL}/${resource}`
+const fetch = (resource) => axios.get(url(resource), {headers})
 
-  return axios.get(url, {headers})
-}
+const post = (resource, payload) => axios.post(url(resource), payload, {headers})
 
-export {fetch}
+const url = (resource) => `${BASE_URL}/${resource}`
+
+export {fetch, post}
 
