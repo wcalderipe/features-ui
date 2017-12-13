@@ -1,11 +1,21 @@
 import sinon from 'sinon'
 import axios from 'axios'
-import {fetch} from '../../../src/clients/features'
+import {fetch, post} from '../../../src/clients/features'
 
 describe('features client', () => {
-  describe('fetch', () => {
-    const sandbox = sinon.sandbox.create()
+  const sandbox = sinon.sandbox.create()
 
+  afterEach(() => {
+    sandbox.restore()
+  })
+
+  const expectedOptions = {
+    headers: {
+      'content-type': 'application/json'
+    }
+  }
+
+  describe('fetch', () => {
     beforeEach(() => {
       sandbox.stub(axios, 'get').resolves({
 	data: [
@@ -15,22 +25,32 @@ describe('features client', () => {
       })
     })
 
-    afterEach(() => {
-      sandbox.restore()
-    })
-
-    it('calls http client with given options', async () => {
+    it('calls client with full api url and options', async () => {
       const expectedURL = 'https://features-api.herokuapp.com/applications'
-      const expectedOptions = {
-	headers: {
-	  'content-type': 'application/json'
-	}
-      }
 
       const response = await fetch('applications')
 
       sinon.assert.calledWith(axios.get, expectedURL, expectedOptions)
     })  
+  })
+
+  describe('post', () => {
+    beforeEach(() => {
+      sandbox.stub(axios, 'post').resolves({
+	id: 99
+      })
+    })
+
+    it('calls client with full api url, payload and options', async () => {
+      const expectedURL = 'https://features-api.herokuapp.com/applications'
+      const payload = {
+	name: 'application01'
+      }
+
+      const response = await post('applications', payload)
+
+      sinon.assert.calledWith(axios.post, expectedURL, payload, expectedOptions)
+    })
   })
 })
 
