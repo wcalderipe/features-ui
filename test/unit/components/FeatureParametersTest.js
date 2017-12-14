@@ -5,25 +5,25 @@ import * as client from '../../../src/clients/api'
 import FeatureParameters from '../../../src/components/FeatureParameters'
 
 describe('FeatureParameters component', () => {
-  const sandbox = sinon.sandbox.create() 
+  const sandbox = sinon.sandbox.create()
   const props = {
     featureId: 1
   }
   const expectedParameters = [
     {
-      id: 1, 
+      id: 1,
       rule: {
-	type: 'string',
-	name: 'tripType',
-	given: 'oneway'
+        type: 'string',
+        name: 'tripType',
+        given: 'oneway'
       }
     },
     {
-      id: 2, 
+      id: 2,
       rule: {
-	type: 'list',
-	name: 'country',
-	presentIn: ['br', 'ar']
+        type: 'list',
+        name: 'country',
+        presentIn: ['br', 'ar']
       }
     }
   ]
@@ -44,7 +44,7 @@ describe('FeatureParameters component', () => {
     expect(link.exists()).toEqual(true)
     expect(link.prop('to')).toEqual('/features/1/parameters/new')
   })
-  
+
   it('fetches parameters by feature id after mount', async () => {
     const wrapper = shallow(<FeatureParameters {...props} />)
     await waitThenUpdate(fetchPromise, wrapper)
@@ -73,7 +73,7 @@ describe('FeatureParameters component', () => {
       const rows = wrapper.find('tbody tr')
       const firstRow = rows.first()
       firstRow.find('button').simulate('click')
-       
+
       sinon.assert.calledWith(client.destroy, 'parameters/1')
     })
 
@@ -90,4 +90,3 @@ describe('FeatureParameters component', () => {
     })
   })
 })
-

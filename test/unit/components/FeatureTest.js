@@ -5,7 +5,7 @@ import * as client from '../../../src/clients/api'
 import Feature from '../../../src/components/Feature'
 
 describe('Feature component', () => {
-  const sandbox = sinon.sandbox.create() 
+  const sandbox = sinon.sandbox.create()
   const props = {
     match: {
       params: {featureId: '1'}
@@ -44,4 +44,3 @@ describe('Feature component', () => {
     expect(parameters.props()).toEqual(expectedProps)
   })
 })
-

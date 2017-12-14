@@ -18,7 +18,7 @@ describe('ParameterForm component', () => {
   })
 
   it('does not redirects to feature page', () => {
-    const wrapper = shallow(<ParameterForm {...props} />) 
+    const wrapper = shallow(<ParameterForm {...props} />)
     const redirect = wrapper.find('Redirect')
 
     expect(redirect.exists()).toEqual(false)
@@ -29,41 +29,41 @@ describe('ParameterForm component', () => {
 
     beforeEach(() => {
       postPromise = Promise.resolve({
-	data: {id: 99}
+        data: {id: 99}
       })
       sandbox.stub(client, 'post').returns(postPromise)
     })
 
     it('calls client with textarea parsed text as payload', () => {
-      const wrapper = shallow(<ParameterForm {...props} />) 
+      const wrapper = shallow(<ParameterForm {...props} />)
 
-      const expectedResource = 'parameters'    
+      const expectedResource = 'parameters'
       const expectedPayload = {
-	feature_id: 99,
-	rule: {
-	  type: 'list',
-	  name: 'country',
-	  presentIn: ['br', 'ar']
-	}
+        feature_id: 99,
+        rule: {
+          type: 'list',
+          name: 'country',
+          presentIn: ['br', 'ar']
+        }
       }
 
       wrapper.find('textarea').simulate('change', {
-	target: {
-	  value: JSON.stringify(expectedPayload.rule)
-	}
+        target: {
+          value: JSON.stringify(expectedPayload.rule)
+        }
       })
       wrapper.find('form').simulate('submit', {
-	preventDefault: () => {}
+        preventDefault: () => {}
       })
 
       sinon.assert.calledWith(client.post, expectedResource, expectedPayload)
     })
 
     it('redirects to feature page', async () => {
-      const wrapper = shallow(<ParameterForm {...props} />) 
+      const wrapper = shallow(<ParameterForm {...props} />)
       wrapper.setState({rule: '{}'})
       wrapper.find('form').simulate('submit', {
-	preventDefault: () => {}
+        preventDefault: () => {}
       })
 
       await waitThenUpdate(postPromise, wrapper)
@@ -74,4 +74,3 @@ describe('ParameterForm component', () => {
     })
   })
 })
-

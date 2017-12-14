@@ -5,7 +5,7 @@ import * as client from '../../../src/clients/api'
 import Applications from '../../../src/components/Applications'
 
 describe('Applications component', () => {
-  const sandbox = sinon.sandbox.create() 
+  const sandbox = sinon.sandbox.create()
 
   afterEach(() => {
     sandbox.restore()

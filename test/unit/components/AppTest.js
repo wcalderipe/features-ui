@@ -33,4 +33,3 @@ describe('App component', () => {
     expect(route.prop('component').name).toEqual('ParameterForm')
   })
 })
-

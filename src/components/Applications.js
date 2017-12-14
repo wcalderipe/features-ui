@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 
 import {fetch} from '../clients/api'
-import ParameterForm from './ParameterForm'
 
 class Applications extends Component {
   constructor (props) {
@@ -24,39 +23,38 @@ class Applications extends Component {
 
     return (
       <tr key={id}>
-	<td>
-	  <Link to={`/applications/${id}`}>{name}</Link>
-	</td>
+        <td>
+          <Link to={`/applications/${id}`}>{name}</Link>
+        </td>
       </tr>
-    ) 
+    )
   }
 
   render () {
     return (
       <div className='container'>
-	<div className='row'>
-	  <div className='col-md-12'>
-	    <h1 className='page-header'>Applications</h1>
-	  </div>
-	</div>
-	<div className='row'> 
-	  <div className='col-md-12'>
-	    <table className='table'>
-	      <thead>
-		<tr>
-		  <th>Name</th>
-		</tr>
-	      </thead>
-	      <tbody>
-		{this.state.applications.map(this.renderRow)}
-	      </tbody>
-	    </table>
-	  </div> 
-	</div> 
+        <div className='row'>
+          <div className='col-md-12'>
+            <h1 className='page-header'>Applications</h1>
+          </div>
+        </div>
+        <div className='row'>
+          <div className='col-md-12'>
+            <table className='table'>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.applications.map(this.renderRow)}
+              </tbody>
+            </table>
+          </div>
+        </div>
       </div>
     )
   }
 }
 
 export default Applications
-

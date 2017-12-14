@@ -6,7 +6,7 @@ import {fetch} from '../clients/api'
 class ApplicationFeatures extends Component {
   constructor (props) {
     super(props)
-    
+
     this.state = {
       features: []
     }
@@ -24,33 +24,31 @@ class ApplicationFeatures extends Component {
 
     return (
       <tr key={id}>
-	<td>
-	  <Link to={`/features/${id}`}>{name}</Link>
-	</td>
+        <td>
+          <Link to={`/features/${id}`}>{name}</Link>
+        </td>
       </tr>
     )
   }
 
   render () {
     return (
-      <div className='row'> 
-	<div className='col-md-12'>
-	  <table className='table'>
-	      <thead>
-		<tr>
-		  <th>Features</th>
-		</tr>
-	      </thead>
-	      <tbody>
-		{this.state.features.map(this.renderRow)}
-	      </tbody>
-	  </table>
-	</div> 
-      </div> 
+      <div className='row'>
+        <div className='col-md-12'>
+          <table className='table'>
+            <thead>
+              <tr>
+                <th>Features</th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.state.features.map(this.renderRow)}
+            </tbody>
+          </table>
+        </div>
+      </div>
     )
   }
 }
 
 export default ApplicationFeatures
-
-

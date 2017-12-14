@@ -1,4 +1,4 @@
-import axios from 'axios' 
+import axios from 'axios'
 
 const BASE_URL = 'https://features-api.herokuapp.com'
 
@@ -15,4 +15,3 @@ const destroy = (resource) => axios.delete(url(resource))
 const url = (resource) => `${BASE_URL}/${resource}`
 
 export {fetch, post, destroy}
-
