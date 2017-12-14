@@ -5,7 +5,7 @@ import * as client from '../../../src/clients/api'
 import ApplicationFeatures from '../../../src/components/ApplicationFeatures'
 
 describe('ApplicationFeatures component', () => {
-  const sandbox = sinon.sandbox.create() 
+  const sandbox = sinon.sandbox.create()
   const props = {
     applicationId: 1
   }
@@ -37,4 +37,3 @@ describe('ApplicationFeatures component', () => {
     expect(wrapper.find('tbody').children().length).toEqual(2)
   })
 })
-

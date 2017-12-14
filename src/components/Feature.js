@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 
 import {fetch} from '../clients/api'
 import FeatureParameters from './FeatureParameters'
@@ -24,16 +25,19 @@ class Feature extends Component {
 
     return (
       <div className='container'>
-	<div className='row'>
-	  <div className='col-md-12'>
-	    <h1 className='page-header'>Feature: {this.state.feature.name}</h1>
-	  </div>
-	</div>
-	<FeatureParameters featureId={featureId} />
+        <div className='row'>
+          <div className='col-md-12'>
+            <h1 className='page-header'>Feature: {this.state.feature.name}</h1>
+          </div>
+        </div>
+        <FeatureParameters featureId={featureId} />
       </div>
     )
   }
 }
 
-export default Feature
+Feature.propTypes = {
+  match: PropTypes.object
+}
 
+export default Feature

@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 
 import {fetch} from '../clients/api'
 import ApplicationFeatures from './ApplicationFeatures'
@@ -6,7 +7,7 @@ import ApplicationFeatures from './ApplicationFeatures'
 class Application extends Component {
   constructor (props) {
     super(props)
-    
+
     this.state = {
       application: {}
     }
@@ -24,16 +25,19 @@ class Application extends Component {
 
     return (
       <div className='container'>
-	<div className='row'>
-	  <div className='col-md-12'>
-	    <h1 className='page-header'>Application: {this.state.application.name}</h1>
-	  </div>
-	</div>
-	<ApplicationFeatures applicationId={applicationId} />
+        <div className='row'>
+          <div className='col-md-12'>
+            <h1 className='page-header'>Application: {this.state.application.name}</h1>
+          </div>
+        </div>
+        <ApplicationFeatures applicationId={applicationId} />
       </div>
     )
   }
 }
 
-export default Application
+Application.propTypes = {
+  match: PropTypes.object
+}
 
+export default Application

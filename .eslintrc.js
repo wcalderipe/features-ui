@@ -8,23 +8,22 @@ module.exports = {
     "plugin:import/warnings",
   ],
   "env": {
-    "browser": true
+    "jest/globals": true
   },
   "plugins": [
     "import",
-    "react"
+    "react",
+    "jest"
   ],
   "rules": {
     "array-bracket-spacing": 2,
     "arrow-spacing": 2,
-    "flowtype/require-valid-file-annotation": ["error", "never", {"annotationStyle": "line"}],
     "import/default": 2,
     "import/named": 0,
     "import/no-duplicates": 2,
     "import/no-extraneous-dependencies": ["error", {"devDependencies": ["test/**/*.js", "*.js"]}],
     "import/no-named-as-default": 0,
     "key-spacing": 2,
-    "mocha/no-exclusive-tests": 2,
     "no-duplicate-imports": 0,
     "no-unused-expressions": 0,
     "no-unused-vars": [2, {"vars": "all", "args": "after-used"}],
@@ -61,7 +60,6 @@ module.exports = {
     "react/no-danger-with-children": 2,
     "react/no-danger": 2,
     "react/no-deprecated": 2,
-    "react/no-did-mount-set-state": 2,
     "react/no-did-update-set-state": 2,
     "react/no-direct-mutation-state": 2,
     "react/no-find-dom-node": 0,
