@@ -1,5 +1,5 @@
 import sinon from 'sinon'
-import {React, shallow} from './testSetup'
+import {React, shallow, waitThenUpdate} from './testSetup'
 
 import * as client from '../../../src/clients/api'
 import ApplicationFeatures from '../../../src/components/ApplicationFeatures'
@@ -25,19 +25,14 @@ describe('ApplicationFeatures component', () => {
 
   it('fetches features by application id after mount', async () => {
     const wrapper = shallow(<ApplicationFeatures {...props} />)
+    await waitThenUpdate(fetchPromise, wrapper)
 
-    await fetchPromise
-
-    expect(wrapper.state()).toHaveProperty('features')
-    wrapper.update()	
     expect(wrapper.state('features')).toEqual(expectedFeatures)
   })
 
   it('renders a row for each feature', async () => {
     const wrapper = shallow(<ApplicationFeatures {...props} />)
-
-    await fetchPromise
-    wrapper.update()	
+    await waitThenUpdate(fetchPromise, wrapper)
 
     expect(wrapper.find('tbody').children().length).toEqual(2)
   })

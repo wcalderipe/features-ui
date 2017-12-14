@@ -6,9 +6,15 @@ import Adapter from 'enzyme-adapter-react-16'
 
 Enzyme.configure({ adapter: new Adapter() })
 
+const waitThenUpdate = async (promise, wrapper) => {
+  await promise
+  wrapper.update()
+}
+
 export {
   React,
   shallow,
-  mount
+  mount,
+  waitThenUpdate
 }
 

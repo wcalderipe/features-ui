@@ -1,5 +1,5 @@
 import sinon from 'sinon'
-import {React, shallow} from './testSetup'
+import {React, shallow, waitThenUpdate} from './testSetup'
 
 import * as client from '../../../src/clients/api'
 import ParameterForm from '../../../src/components/ParameterForm'
@@ -61,15 +61,12 @@ describe('ParameterForm component', () => {
 
     it('redirects to feature page', async () => {
       const wrapper = shallow(<ParameterForm {...props} />) 
-
       wrapper.setState({rule: '{}'})
       wrapper.find('form').simulate('submit', {
 	preventDefault: () => {}
       })
 
-      await postPromise
-      wrapper.update()
-
+      await waitThenUpdate(postPromise, wrapper)
       const redirect = wrapper.find('Redirect')
 
       expect(redirect.exists()).toEqual(true)
