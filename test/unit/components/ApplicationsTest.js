@@ -1,7 +1,7 @@
 import sinon from 'sinon'
-import {React, shallow} from './testSetup'
+import {React, shallow, waitThenUpdate} from './testSetup'
 
-import * as client from '../../../src/clients/features'
+import * as client from '../../../src/clients/api'
 import Applications from '../../../src/components/Applications'
 
 describe('Applications component', () => {
@@ -18,11 +18,8 @@ describe('Applications component', () => {
     const fetchPromise = Promise.resolve({data: expectApplications})
     sandbox.stub(client, 'fetch').returns(fetchPromise)
     const wrapper = shallow(<Applications />)
+    await waitThenUpdate(fetchPromise, wrapper)
 
-    await fetchPromise
-
-    expect(wrapper.state()).toHaveProperty('applications')
-    wrapper.update()	
     expect(wrapper.state('applications')).toEqual(expectApplications)
   })
 })

@@ -1,35 +1,53 @@
 import React, {Component} from 'react'
 import {Link} from 'react-router-dom'
 
-import {fetch} from '../clients/features'
+import {fetch, destroy} from '../clients/api'
 
 class FeatureParameters extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
     
     this.state = {
       parameters: []
     }
+
+    this.renderRow = this.renderRow.bind(this)
   }
 
-  async componentDidMount () {
+  async componentDidMount() {
     const {featureId} = this.props
     const response = await fetch(`features/${featureId}/parameters`)
 
     this.setState({parameters: response.data})
   }
 
-  renderRow (parameter) {
+  renderRow(parameter) {
     const {id, rule} = parameter 
 
     return (
       <tr key={id}>
 	<td>{JSON.stringify(rule)}</td>
+	<td>
+	  <button 
+	    onClick={() => this.handleDeleteClick(id)} 
+	    type='button' 
+	    className='btn btn-danger btn-xs'>Delete</button>
+	</td>
       </tr>
     )
   }
 
-  render () {
+  async handleDeleteClick(parameterId) {
+    await destroy(`parameters/${parameterId}`)
+
+    const {parameters} = this.state
+
+    this.setState({
+      parameters: parameters.filter(({id}) => id !== parameterId)
+    })
+  }
+
+  render() {
     const {featureId} = this.props
 
     return (
@@ -42,6 +60,7 @@ class FeatureParameters extends Component {
 	      <thead>
 		<tr>
 		  <th>Parameters</th>
+		  <th></th>
 		</tr>
 	      </thead>
 	      <tbody>

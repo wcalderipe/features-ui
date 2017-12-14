@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {fetch} from '../clients/features'
+import {fetch} from '../clients/api'
 import FeatureParameters from './FeatureParameters'
 
 class Feature extends Component {

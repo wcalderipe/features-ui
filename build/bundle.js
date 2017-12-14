@@ -912,7 +912,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.post = exports.fetch = undefined;
+exports.destroy = exports.post = exports.fetch = undefined;
 
 var _axios = __webpack_require__(94);
 
@@ -934,12 +934,17 @@ var post = function post(resource, payload) {
   return _axios2.default.post(url(resource), payload, { headers: headers });
 };
 
+var destroy = function destroy(resource) {
+  return _axios2.default.delete(url(resource));
+};
+
 var url = function url(resource) {
   return BASE_URL + '/' + resource;
 };
 
 exports.fetch = fetch;
 exports.post = post;
+exports.destroy = destroy;
 
 /***/ }),
 /* 14 */
@@ -2656,7 +2661,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(12);
 
-var _features = __webpack_require__(13);
+var _api = __webpack_require__(13);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2703,7 +2708,7 @@ var ParameterForm = function (_Component) {
         rule: JSON.parse(this.state.rule)
       };
 
-      await (0, _features.post)('parameters', payload);
+      await (0, _api.post)('parameters', payload);
 
       this.setState({ submitSucceeded: true });
     }
@@ -5798,7 +5803,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _features = __webpack_require__(13);
+var _api = __webpack_require__(13);
 
 var _ApplicationFeatures = __webpack_require__(113);
 
@@ -5831,7 +5836,7 @@ var Application = function (_Component) {
     value: async function componentDidMount() {
       var applicationId = this.props.match.params.applicationId;
 
-      var response = await (0, _features.fetch)('applications/' + applicationId);
+      var response = await (0, _api.fetch)('applications/' + applicationId);
 
       this.setState({ application: response.data });
     }
@@ -5887,7 +5892,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(12);
 
-var _features = __webpack_require__(13);
+var _api = __webpack_require__(13);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5916,7 +5921,7 @@ var ApplicationFeatures = function (_Component) {
     value: async function componentDidMount() {
       var applicationId = this.props.applicationId;
 
-      var response = await (0, _features.fetch)('applications/' + applicationId + '/features');
+      var response = await (0, _api.fetch)('applications/' + applicationId + '/features');
 
       this.setState({ features: response.data });
     }
@@ -6001,7 +6006,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(12);
 
-var _features = __webpack_require__(13);
+var _api = __webpack_require__(13);
 
 var _ParameterForm = __webpack_require__(52);
 
@@ -6032,7 +6037,7 @@ var Applications = function (_Component) {
   _createClass(Applications, [{
     key: 'componentDidMount',
     value: async function componentDidMount() {
-      var response = await (0, _features.fetch)('applications');
+      var response = await (0, _api.fetch)('applications');
 
       this.setState({ applications: response.data });
     }
@@ -6132,7 +6137,7 @@ var _react = __webpack_require__(0);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _features = __webpack_require__(13);
+var _api = __webpack_require__(13);
 
 var _FeatureParameters = __webpack_require__(116);
 
@@ -6165,7 +6170,7 @@ var Feature = function (_Component) {
     value: async function componentDidMount() {
       var featureId = this.props.match.params.featureId;
 
-      var response = await (0, _features.fetch)('features/' + featureId);
+      var response = await (0, _api.fetch)('features/' + featureId);
 
       this.setState({ feature: response.data });
     }
@@ -6221,7 +6226,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(12);
 
-var _features = __webpack_require__(13);
+var _api = __webpack_require__(13);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6242,6 +6247,8 @@ var FeatureParameters = function (_Component) {
     _this.state = {
       parameters: []
     };
+
+    _this.renderRow = _this.renderRow.bind(_this);
     return _this;
   }
 
@@ -6250,13 +6257,15 @@ var FeatureParameters = function (_Component) {
     value: async function componentDidMount() {
       var featureId = this.props.featureId;
 
-      var response = await (0, _features.fetch)('features/' + featureId + '/parameters');
+      var response = await (0, _api.fetch)('features/' + featureId + '/parameters');
 
       this.setState({ parameters: response.data });
     }
   }, {
     key: 'renderRow',
     value: function renderRow(parameter) {
+      var _this2 = this;
+
       var id = parameter.id,
           rule = parameter.rule;
 
@@ -6268,8 +6277,37 @@ var FeatureParameters = function (_Component) {
           'td',
           null,
           JSON.stringify(rule)
+        ),
+        _react2.default.createElement(
+          'td',
+          null,
+          _react2.default.createElement(
+            'button',
+            {
+              onClick: function onClick() {
+                return _this2.handleDeleteClick(id);
+              },
+              type: 'button',
+              className: 'btn btn-danger btn-xs' },
+            'Delete'
+          )
         )
       );
+    }
+  }, {
+    key: 'handleDeleteClick',
+    value: async function handleDeleteClick(parameterId) {
+      await (0, _api.destroy)('parameters/' + parameterId);
+
+      var parameters = this.state.parameters;
+
+
+      this.setState({
+        parameters: parameters.filter(function (_ref) {
+          var id = _ref.id;
+          return id !== parameterId;
+        })
+      });
     }
   }, {
     key: 'render',
@@ -6305,7 +6343,8 @@ var FeatureParameters = function (_Component) {
                   'th',
                   null,
                   'Parameters'
-                )
+                ),
+                _react2.default.createElement('th', null)
               )
             ),
             _react2.default.createElement(

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 
-import {fetch} from '../clients/features'
+import {fetch} from '../clients/api'
 import ApplicationFeatures from './ApplicationFeatures'
 
 class Application extends Component {

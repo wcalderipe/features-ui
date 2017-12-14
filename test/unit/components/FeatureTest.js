@@ -1,7 +1,7 @@
 import sinon from 'sinon'
-import {React, shallow} from './testSetup'
+import {React, shallow, waitThenUpdate} from './testSetup'
 
-import * as client from '../../../src/clients/features'
+import * as client from '../../../src/clients/api'
 import Feature from '../../../src/components/Feature'
 
 describe('Feature component', () => {
@@ -27,11 +27,8 @@ describe('Feature component', () => {
 
   it('fetches feature by id after component mount', async () => {
     const wrapper = shallow(<Feature {...props} />)
+    await waitThenUpdate(fetchPromise, wrapper)
 
-    await fetchPromise
-
-    expect(wrapper.state()).toHaveProperty('feature')
-    wrapper.update()	
     expect(wrapper.state('feature')).toEqual(expectedFeature)
   })
 
@@ -40,10 +37,7 @@ describe('Feature component', () => {
     const expectedProps = {
       featureId: '1'
     }
-
-    await fetchPromise
-    wrapper.update()	
-
+    await waitThenUpdate(fetchPromise, wrapper)
     const parameters = wrapper.find('FeatureParameters')
 
     expect(parameters.exists()).toEqual(true)
