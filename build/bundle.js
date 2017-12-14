@@ -6282,14 +6282,13 @@ var FeatureParameters = function (_Component) {
           'td',
           null,
           _react2.default.createElement(
-            'a',
+            'button',
             {
-              href: '#',
               onClick: function onClick() {
                 return _this2.handleDeleteClick(id);
               },
-              className: 'text-danger'
-            },
+              type: 'button',
+              className: 'btn btn-danger btn-xs' },
             'Delete'
           )
         )
