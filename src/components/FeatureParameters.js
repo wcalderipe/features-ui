@@ -28,11 +28,10 @@ class FeatureParameters extends Component {
       <tr key={id}>
 	<td>{JSON.stringify(rule)}</td>
 	<td>
-	  <a 
-	    href='#' 
+	  <button 
 	    onClick={() => this.handleDeleteClick(id)} 
-	    className='text-danger'
-	  >Delete</a>
+	    type='button' 
+	    className='btn btn-danger btn-xs'>Delete</button>
 	</td>
       </tr>
     )

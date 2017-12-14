@@ -72,7 +72,7 @@ describe('FeatureParameters component', () => {
 
       const rows = wrapper.find('tbody tr')
       const firstRow = rows.first()
-      firstRow.find('a').simulate('click')
+      firstRow.find('button').simulate('click')
        
       sinon.assert.calledWith(client.destroy, 'parameters/1')
     })
@@ -83,7 +83,7 @@ describe('FeatureParameters component', () => {
 
       const rows = wrapper.find('tbody tr')
       const firstRow = rows.first()
-      firstRow.find('a').simulate('click')
+      firstRow.find('button').simulate('click')
       await waitThenUpdate(destroyPromise, wrapper)
 
       expect(wrapper.state('parameters').length).toEqual(1)
