@@ -1,5 +1,8 @@
+const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+
+const env = process.env.NODE_ENV || 'development'
 
 module.exports = {
   devtool: 'source-map',
@@ -14,17 +17,17 @@ module.exports = {
   module: {
     rules: [
       {
-	test: /\.jsx?$/,
-	exclude: /node_modules/,
-	loader: 'babel-loader'
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel-loader'
       },
       {
-	test: /\.less$/,
-	use: ['style-loader', 'css-loader', 'less-loader']
+        test: /\.less$/,
+        use: ['style-loader', 'css-loader', 'less-loader']
       },
       {
-	test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
-	loader: 'url-loader'
+        test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
+        loader: 'url-loader'
       }
     ]
   },
@@ -35,6 +38,11 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: path.join(__dirname, 'public', 'index.html')
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify(env)
+      }
     })
   ]
 }
