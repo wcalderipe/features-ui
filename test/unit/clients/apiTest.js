@@ -10,6 +10,10 @@ describe('api client', () => {
     }
   }
 
+  beforeEach(() => {
+    process.env.API_URL = 'http://127.0.0.1:3000'
+  })
+
   afterEach(() => {
     sandbox.restore()
   })
@@ -25,7 +29,7 @@ describe('api client', () => {
     })
 
     it('calls client with full api url and options', async () => {
-      const expectedURL = 'https://features-api.herokuapp.com/applications'
+      const expectedURL = 'http://127.0.0.1:3000/applications'
       await fetch('applications')
 
       sinon.assert.calledWith(axios.get, expectedURL, expectedOptions)
@@ -40,7 +44,7 @@ describe('api client', () => {
     })
 
     it('calls client with full api url, payload and options', async () => {
-      const expectedURL = 'https://features-api.herokuapp.com/applications'
+      const expectedURL = 'http://127.0.0.1:3000/applications'
       const payload = {
         name: 'application01'
       }
@@ -58,7 +62,7 @@ describe('api client', () => {
     })
 
     it('calls client with full api url', async () => {
-      const expectedURL = 'https://features-api.herokuapp.com/applications/99'
+      const expectedURL = 'http://127.0.0.1:3000/applications/99'
       await destroy('applications/99')
 
       sinon.assert.calledWith(axios.delete, expectedURL)

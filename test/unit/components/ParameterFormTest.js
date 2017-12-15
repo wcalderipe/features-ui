@@ -39,7 +39,7 @@ describe('ParameterForm component', () => {
 
       const expectedResource = 'parameters'
       const expectedPayload = {
-        feature_id: 99,
+        featureId: 99,
         rule: {
           type: 'list',
           name: 'country',
