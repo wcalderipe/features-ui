@@ -28,7 +28,7 @@ class ParameterForm extends Component {
 
     const {featureId} = this.props.match.params
     const payload = {
-      feature_id: parseInt(featureId),
+      featureId: parseInt(featureId),
       rule: JSON.parse(this.state.rule)
     }
 
