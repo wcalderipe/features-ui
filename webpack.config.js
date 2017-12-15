@@ -2,7 +2,8 @@ const webpack = require('webpack')
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-const env = process.env.NODE_ENV || 'development'
+const ENV = process.env.NODE_ENV || 'development'
+const API_URL = process.env.API_URL || 'https://features-api.herokuapp.com'
 
 module.exports = {
   devtool: 'source-map',
@@ -41,7 +42,8 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify(env)
+        'NODE_ENV': JSON.stringify(ENV),
+        'API_URL': JSON.stringify(API_URL)
       }
     })
   ]
