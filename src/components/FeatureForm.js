@@ -4,12 +4,12 @@ import {Redirect} from 'react-router-dom'
 
 import {post} from '../clients/api'
 
-class ParameterForm extends Component {
+class FeatureForm extends Component {
   constructor (props) {
     super(props)
 
     this.state = {
-      rule: '',
+      name: '',
       submitSucceeded: false
     }
 
@@ -19,58 +19,56 @@ class ParameterForm extends Component {
 
   handleChange (event) {
     this.setState({
-      rule: event.target.value
+      name: event.target.value
     })
   }
 
   async handleSubmit (event) {
     event.preventDefault()
 
-    const {featureId} = this.props.match.params
+    const {applicationId} = this.props.match.params
     const payload = {
-      featureId: parseInt(featureId),
-      rule: JSON.parse(this.state.rule)
+      applicationId: parseInt(applicationId),
+      name: this.state.name
     }
-
-    await post('parameters', payload)
+    await post('features', payload)
 
     this.setState({submitSucceeded: true})
   }
 
-  redirectToFeature (shouldRedirect, featureId) {
+  redirectToApplicationFeatures (shouldRedirect, applicationId) {
     return shouldRedirect
-      ? <Redirect to={`/features/${featureId}`} />
+      ? <Redirect to={`/applications/${applicationId}`} />
       : null
   }
 
   render () {
-    const {featureId} = this.props.match.params
+    const {applicationId} = this.props.match.params
     const {submitSucceeded} = this.state
 
     return (
       <div className='container'>
         <div className='row'>
           <div className='col-md-12'>
-            <h1 className='page-header'>Add new parameter</h1>
+            <h1 className='page-header'>Add new feature</h1>
           </div>
         </div>
         <div className='row'>
           <div className='col-md-12'>
             <form onSubmit={this.handleSubmit}>
               <div className='form-group'>
-                <label>Rule:</label>
-                <textarea
+                <label>Name:</label>
+                <input
                   value={this.state.value}
                   onChange={this.handleChange}
-                  className='form-control'
-                  rows='6'
+                  className='feature-name form-control'
                 />
               </div>
               <div className='form-group'>
                 <input className='btn btn-default' type='submit' value='Add' />
               </div>
             </form>
-            {this.redirectToFeature(submitSucceeded, featureId)}
+            {this.redirectToApplicationFeatures(submitSucceeded, applicationId)}
           </div>
         </div>
       </div>
@@ -78,8 +76,8 @@ class ParameterForm extends Component {
   }
 }
 
-ParameterForm.propTypes = {
+FeatureForm.propTypes = {
   match: PropTypes.object
 }
 
-export default ParameterForm
+export default FeatureForm

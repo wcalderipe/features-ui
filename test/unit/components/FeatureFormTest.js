@@ -2,14 +2,13 @@ import sinon from 'sinon'
 import {React, shallow, waitThenUpdate} from './testSetup'
 
 import * as client from '../../../src/clients/api'
-import ParameterForm from '../../../src/components/ParameterForm'
+import FeatureForm from '../../../src/components/FeatureForm'
 
-describe('ParameterForm component', () => {
+describe('FeatureForm component', () => {
   const sandbox = sinon.sandbox.create()
-
   const props = {
     match: {
-      params: {featureId: '99'}
+      params: {applicationId: '99'}
     }
   }
 
@@ -18,14 +17,14 @@ describe('ParameterForm component', () => {
   })
 
   it('starts with empty state', () => {
-    const wrapper = shallow(<ParameterForm {...props} />)
+    const wrapper = shallow(<FeatureForm {...props} />)
 
-    expect(wrapper.state('rule')).toEqual('')
+    expect(wrapper.state('name')).toEqual('')
     expect(wrapper.state('submitSucceeded')).toEqual(false)
   })
 
-  it('does not redirect to feature page', () => {
-    const wrapper = shallow(<ParameterForm {...props} />)
+  it('does not redirect to application features list', () => {
+    const wrapper = shallow(<FeatureForm {...props} />)
     const redirect = wrapper.find('Redirect')
 
     expect(redirect.exists()).toEqual(false)
@@ -36,27 +35,22 @@ describe('ParameterForm component', () => {
 
     beforeEach(() => {
       postPromise = Promise.resolve({
-        data: {id: 99}
+        data: {id: 66}
       })
-      sandbox.stub(client, 'post').returns(postPromise)
+      sandbox.stub(client, 'post').resolves(postPromise)
     })
 
-    it('calls client with textarea parsed text as payload', () => {
-      const wrapper = shallow(<ParameterForm {...props} />)
-
-      const expectedResource = 'parameters'
+    it('calls client with feature name and application id', () => {
+      const wrapper = shallow(<FeatureForm {...props} />)
+      const expectedResource = 'features'
       const expectedPayload = {
-        featureId: 99,
-        rule: {
-          type: 'list',
-          name: 'country',
-          presentIn: ['br', 'ar']
-        }
+        applicationId: 99,
+        name: 'new_feature'
       }
 
-      wrapper.find('textarea').simulate('change', {
+      wrapper.find('.feature-name').simulate('change', {
         target: {
-          value: JSON.stringify(expectedPayload.rule)
+          value: 'new_feature'
         }
       })
       wrapper.find('form').simulate('submit', {
@@ -66,9 +60,9 @@ describe('ParameterForm component', () => {
       sinon.assert.calledWith(client.post, expectedResource, expectedPayload)
     })
 
-    it('redirects to feature page', async () => {
-      const wrapper = shallow(<ParameterForm {...props} />)
-      wrapper.setState({rule: '{}'})
+    it('redirects to application features list', async () => {
+      const wrapper = shallow(<FeatureForm {...props} />)
+      wrapper.setState({name: 'new_feature'})
       wrapper.find('form').simulate('submit', {
         preventDefault: () => {}
       })
@@ -77,7 +71,7 @@ describe('ParameterForm component', () => {
       const redirect = wrapper.find('Redirect')
 
       expect(redirect.exists()).toEqual(true)
-      expect(redirect.prop('to')).toEqual('/features/99')
+      expect(redirect.prop('to')).toEqual('/applications/99')
     })
   })
 })

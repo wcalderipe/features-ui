@@ -34,13 +34,13 @@ describe('Application component', () => {
 
   it('renders ApplicationFeatures with given props', async () => {
     const wrapper = shallow(<Application {...props} />)
-    const expectedProps = {
+    const expectedFeaturesProps = {
       applicationId: '1'
     }
     await waitThenUpdate(fetchPromise, wrapper)
     const features = wrapper.find('ApplicationFeatures')
 
     expect(features.exists()).toEqual(true)
-    expect(features.props()).toEqual(expectedProps)
+    expect(features.props()).toEqual(expectedFeaturesProps)
   })
 })
