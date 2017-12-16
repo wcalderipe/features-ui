@@ -42,9 +42,10 @@ class FeatureParameters extends Component {
     await destroy(`parameters/${parameterId}`)
 
     const {parameters} = this.state
+    const removeParameterById = (parameterId) => ({id}) => id !== parameterId
 
     this.setState({
-      parameters: parameters.filter(({id}) => id !== parameterId)
+      parameters: parameters.filter(removeParameterById(parameterId))
     })
   }
 
@@ -75,7 +76,10 @@ class FeatureParameters extends Component {
 }
 
 FeatureParameters.propTypes = {
-  featureId: PropTypes.string
+  featureId: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ]).isRequired
 }
 
 export default FeatureParameters

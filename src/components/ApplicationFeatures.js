@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 
 import {fetch} from '../clients/api'
@@ -32,8 +33,16 @@ class ApplicationFeatures extends Component {
   }
 
   render () {
+    const {applicationId} = this.props
+
     return (
       <div className='row'>
+        <div className='col-md-12'>
+          <Link
+            className='add-feature'
+            to={`/applications/${applicationId}/features/new`}
+          >Add new feature</Link>
+        </div>
         <div className='col-md-12'>
           <table className='table'>
             <thead>
@@ -49,6 +58,10 @@ class ApplicationFeatures extends Component {
       </div>
     )
   }
+}
+
+ApplicationFeatures.propTypes = {
+  applicationId: PropTypes.string
 }
 
 export default ApplicationFeatures

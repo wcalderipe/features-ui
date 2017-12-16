@@ -17,6 +17,13 @@ describe('ParameterForm component', () => {
     sandbox.restore()
   })
 
+  it('starts with empty state', () => {
+    const wrapper = shallow(<ParameterForm {...props} />)
+
+    expect(wrapper.state('rule')).toEqual('')
+    expect(wrapper.state('submitSucceeded')).toEqual(false)
+  })
+
   it('does not redirects to feature page', () => {
     const wrapper = shallow(<ParameterForm {...props} />)
     const redirect = wrapper.find('Redirect')

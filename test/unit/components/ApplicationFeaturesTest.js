@@ -7,7 +7,7 @@ import ApplicationFeatures from '../../../src/components/ApplicationFeatures'
 describe('ApplicationFeatures component', () => {
   const sandbox = sinon.sandbox.create()
   const props = {
-    applicationId: 1
+    applicationId: '1'
   }
   const expectedFeatures = [
     {id: 1, name: 'feature01'},
@@ -35,5 +35,14 @@ describe('ApplicationFeatures component', () => {
     await waitThenUpdate(fetchPromise, wrapper)
 
     expect(wrapper.find('tbody').children().length).toEqual(2)
+  })
+
+  it('renders feature form link', async () => {
+    const wrapper = shallow(<ApplicationFeatures {...props} />)
+    await waitThenUpdate(fetchPromise, wrapper)
+    const link = wrapper.find('.add-feature')
+
+    expect(link.exists()).toEqual(true)
+    expect(link.prop('to')).toEqual('/applications/1/features/new')
   })
 })
