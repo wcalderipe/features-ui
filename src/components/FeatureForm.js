@@ -36,8 +36,15 @@ class FeatureForm extends Component {
     this.setState({submitSucceeded: true})
   }
 
+  redirectToApplicationFeatures (shouldRedirect, applicationId) {
+    return shouldRedirect
+      ? <Redirect to={`/applications/${applicationId}`} />
+      : null
+  }
+
   render () {
     const {applicationId} = this.props.match.params
+    const {submitSucceeded} = this.state
 
     return (
       <div className='container'>
@@ -61,9 +68,7 @@ class FeatureForm extends Component {
                 <input className='btn btn-default' type='submit' value='Add' />
               </div>
             </form>
-            {this.state.submitSucceeded && (
-              <Redirect to={`/applications/${applicationId}`} />
-            )}
+            {this.redirectToApplicationFeatures(submitSucceeded, applicationId)}
           </div>
         </div>
       </div>
