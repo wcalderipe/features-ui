@@ -24,7 +24,7 @@ describe('ParameterForm component', () => {
     expect(wrapper.state('submitSucceeded')).toEqual(false)
   })
 
-  it('does not redirects to feature page', () => {
+  it('does not redirect to feature page', () => {
     const wrapper = shallow(<ParameterForm {...props} />)
     const redirect = wrapper.find('Redirect')
 

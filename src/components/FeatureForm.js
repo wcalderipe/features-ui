@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
+import {Redirect} from 'react-router-dom'
 
 import {post} from '../clients/api'
 
@@ -8,7 +9,8 @@ class FeatureForm extends Component {
     super(props)
 
     this.state = {
-      name: ''
+      name: '',
+      submitSucceeded: false
     }
 
     this.handleChange = this.handleChange.bind(this)
@@ -25,14 +27,18 @@ class FeatureForm extends Component {
     event.preventDefault()
 
     const {applicationId} = this.props.match.params
-
-    await post('features', {
+    const payload = {
       applicationId: parseInt(applicationId),
       name: this.state.name
-    })
+    }
+    await post('features', payload)
+
+    this.setState({submitSucceeded: true})
   }
 
   render () {
+    const {applicationId} = this.props.match.params
+
     return (
       <div className='container'>
         <div className='row'>
@@ -55,6 +61,9 @@ class FeatureForm extends Component {
                 <input className='btn btn-default' type='submit' value='Add' />
               </div>
             </form>
+            {this.state.submitSucceeded && (
+              <Redirect to={`/applications/${applicationId}`} />
+            )}
           </div>
         </div>
       </div>

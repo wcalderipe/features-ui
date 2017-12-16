@@ -1,5 +1,5 @@
 import sinon from 'sinon'
-import {React, shallow} from './testSetup'
+import {React, shallow, waitThenUpdate} from './testSetup'
 
 import * as client from '../../../src/clients/api'
 import FeatureForm from '../../../src/components/FeatureForm'
@@ -20,12 +20,27 @@ describe('FeatureForm component', () => {
     const wrapper = shallow(<FeatureForm {...props} />)
 
     expect(wrapper.state('name')).toEqual('')
+    expect(wrapper.state('submitSucceeded')).toEqual(false)
+  })
+
+  it('does not redirect to application features list', () => {
+    const wrapper = shallow(<FeatureForm {...props} />)
+    const redirect = wrapper.find('Redirect')
+
+    expect(redirect.exists()).toEqual(false)
   })
 
   describe('on submit', () => {
-    it('calls client with feature name and application id', () => {
-      sandbox.stub(client, 'post').resolves(true)
+    let postPromise
 
+    beforeEach(() => {
+      postPromise = Promise.resolve({
+        data: {id: 66}
+      })
+      sandbox.stub(client, 'post').resolves(postPromise)
+    })
+
+    it('calls client with feature name and application id', () => {
       const wrapper = shallow(<FeatureForm {...props} />)
       const expectedResource = 'features'
       const expectedPayload = {
@@ -43,6 +58,20 @@ describe('FeatureForm component', () => {
       })
 
       sinon.assert.calledWith(client.post, expectedResource, expectedPayload)
+    })
+
+    it('redirects to application features list', async () => {
+      const wrapper = shallow(<FeatureForm {...props} />)
+      wrapper.setState({name: 'new_feature'})
+      wrapper.find('form').simulate('submit', {
+        preventDefault: () => {}
+      })
+
+      await waitThenUpdate(postPromise, wrapper)
+      const redirect = wrapper.find('Redirect')
+
+      expect(redirect.exists()).toEqual(true)
+      expect(redirect.prop('to')).toEqual('/applications/99')
     })
   })
 })
