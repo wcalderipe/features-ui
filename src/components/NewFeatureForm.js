@@ -4,7 +4,7 @@ import {Redirect} from 'react-router-dom'
 
 import {post} from '../clients/api'
 
-class FeatureForm extends Component {
+class NewFeatureForm extends Component {
   constructor (props) {
     super(props)
 
@@ -76,8 +76,8 @@ class FeatureForm extends Component {
   }
 }
 
-FeatureForm.propTypes = {
+NewFeatureForm.propTypes = {
   match: PropTypes.object
 }
 
-export default FeatureForm
+export default NewFeatureForm
