@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {Redirect} from 'react-router-dom'
 
 import {post} from '../clients/api'
+import FeatureForm from './FeatureForm'
 
 class NewFeatureForm extends Component {
   constructor (props) {
@@ -46,6 +47,11 @@ class NewFeatureForm extends Component {
     const {applicationId} = this.props.match.params
     const {submitSucceeded} = this.state
 
+    const featureFormProps = {
+      onSubmit: this.handleSubmit,
+      onChange: this.handleChange
+    }
+
     return (
       <div className='container'>
         <div className='row'>
@@ -55,19 +61,7 @@ class NewFeatureForm extends Component {
         </div>
         <div className='row'>
           <div className='col-md-12'>
-            <form onSubmit={this.handleSubmit}>
-              <div className='form-group'>
-                <label>Name:</label>
-                <input
-                  value={this.state.value}
-                  onChange={this.handleChange}
-                  className='feature-name form-control'
-                />
-              </div>
-              <div className='form-group'>
-                <input className='btn btn-default' type='submit' value='Add' />
-              </div>
-            </form>
+            <FeatureForm {...featureFormProps} />
             {this.redirectToApplicationFeatures(submitSucceeded, applicationId)}
           </div>
         </div>
