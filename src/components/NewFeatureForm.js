@@ -54,6 +54,7 @@ class NewFeatureForm extends Component {
 
     return (
       <div className='container'>
+        {this.redirectToApplicationFeatures(submitSucceeded, applicationId)}
         <div className='row'>
           <div className='col-md-12'>
             <h1 className='page-header'>Add new feature</h1>
@@ -62,7 +63,6 @@ class NewFeatureForm extends Component {
         <div className='row'>
           <div className='col-md-12'>
             <FeatureForm {...featureFormProps} />
-            {this.redirectToApplicationFeatures(submitSucceeded, applicationId)}
           </div>
         </div>
       </div>
