@@ -6,8 +6,11 @@
     "build": "NODE_ENV=production webpack --config webpack.config.js",
     "start:dev": "NODE_ENV=development webpack-dev-server --open --config webpack.config.js",
     "lint": "eslint src test",
+    "test": "npm run test:unit && npm run test:integration",
     "test:unit": "NODE_ENV=test jest --testRegex unit/.*Test",
-    "test-watch:unit": "NODE_ENV=test npm run test:unit -- --watch"
+    "test:integration": "NODE_ENV=test jest --testRegex integration/.*Test",
+    "test-watch:unit": "npm run test:unit -- --watch",
+    "test-watch:integration": "npm run test:integration -- --watch"
   },
   "author": "William Calderipe <wcalderipe@gmail.com>",
   "license": "ISC",

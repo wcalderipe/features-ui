@@ -1,6 +1,6 @@
 import sinon from 'sinon'
 import axios from 'axios'
-import {fetch, post, destroy} from '../../../src/clients/api'
+import {fetch, post, destroy, update} from '../../../src/clients/api'
 
 describe('api client', () => {
   const sandbox = sinon.sandbox.create()
@@ -66,6 +66,24 @@ describe('api client', () => {
       await destroy('applications/99')
 
       sinon.assert.calledWith(axios.delete, expectedURL)
+    })
+  })
+
+  describe('update', () => {
+    beforeEach(() => {
+      sandbox.stub(axios, 'put').resolves({
+        status: 200
+      })
+    })
+
+    it('calls client with full api url and options', async () => {
+      const expectedURL = 'http://127.0.0.1:3000/applications/99'
+      const payload = {
+        name: 'application01'
+      }
+      await update('applications/99', payload)
+
+      sinon.assert.calledWith(axios.put, expectedURL, payload, expectedOptions)
     })
   })
 })

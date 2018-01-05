@@ -8,7 +8,7 @@ import Applications from './Applications'
 import Application from './Application'
 import Feature from './Feature'
 import ParameterForm from './ParameterForm'
-import FeatureForm from './FeatureForm'
+import NewFeatureForm from './NewFeatureForm'
 
 const App = () => (
   <Switch>
@@ -16,7 +16,7 @@ const App = () => (
     <Route exact path='/applications/:applicationId' component={Application} />
     <Route exact path='/features/:featureId' component={Feature} />
     <Route exact path='/features/:featureId/parameters/new' component={ParameterForm} />
-    <Route exact path='/applications/:applicationId/features/new' component={FeatureForm} />
+    <Route exact path='/applications/:applicationId/features/new' component={NewFeatureForm} />
   </Switch>
 )
 

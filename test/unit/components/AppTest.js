@@ -37,6 +37,6 @@ describe('App component', () => {
     const route = wrapper.find('Switch').childAt(4)
 
     expect(route.prop('path')).toEqual('/applications/:applicationId/features/new')
-    expect(route.prop('component').name).toEqual('FeatureForm')
+    expect(route.prop('component').name).toEqual('NewFeatureForm')
   })
 })

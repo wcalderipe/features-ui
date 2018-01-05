@@ -1,83 +1,27 @@
-import React, {Component} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import {Redirect} from 'react-router-dom'
 
-import {post} from '../clients/api'
-
-class FeatureForm extends Component {
-  constructor (props) {
-    super(props)
-
-    this.state = {
-      name: '',
-      submitSucceeded: false
-    }
-
-    this.handleChange = this.handleChange.bind(this)
-    this.handleSubmit = this.handleSubmit.bind(this)
-  }
-
-  handleChange (event) {
-    this.setState({
-      name: event.target.value
-    })
-  }
-
-  async handleSubmit (event) {
-    event.preventDefault()
-
-    const {applicationId} = this.props.match.params
-    const payload = {
-      applicationId: parseInt(applicationId),
-      name: this.state.name
-    }
-    await post('features', payload)
-
-    this.setState({submitSucceeded: true})
-  }
-
-  redirectToApplicationFeatures (shouldRedirect, applicationId) {
-    return shouldRedirect
-      ? <Redirect to={`/applications/${applicationId}`} />
-      : null
-  }
-
-  render () {
-    const {applicationId} = this.props.match.params
-    const {submitSucceeded} = this.state
-
-    return (
-      <div className='container'>
-        <div className='row'>
-          <div className='col-md-12'>
-            <h1 className='page-header'>Add new feature</h1>
-          </div>
-        </div>
-        <div className='row'>
-          <div className='col-md-12'>
-            <form onSubmit={this.handleSubmit}>
-              <div className='form-group'>
-                <label>Name:</label>
-                <input
-                  value={this.state.value}
-                  onChange={this.handleChange}
-                  className='feature-name form-control'
-                />
-              </div>
-              <div className='form-group'>
-                <input className='btn btn-default' type='submit' value='Add' />
-              </div>
-            </form>
-            {this.redirectToApplicationFeatures(submitSucceeded, applicationId)}
-          </div>
-        </div>
-      </div>
-    )
-  }
-}
+const FeatureForm = (props) => (
+  <form onSubmit={props.onSubmit}>
+    <div className='form-group'>
+      <label>Name:</label>
+      <input
+        type='text'
+        onChange={props.onChange}
+        className='feature-name form-control' />
+    </div>
+    <div className='form-group'>
+      <input
+        className='btn btn-default btn-submit'
+        type='submit'
+        value='Add' />
+    </div>
+  </form>
+)
 
 FeatureForm.propTypes = {
-  match: PropTypes.object
+  onSubmit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired
 }
 
 export default FeatureForm
