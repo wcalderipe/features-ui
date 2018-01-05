@@ -1,6 +1,7 @@
 import sinon from 'sinon'
 import {React, shallow} from './testSetup'
 
+import * as client from '../../../src/clients/api'
 import NewFeatureForm from '../../../src/components/NewFeatureForm'
 
 describe('NewFeatureForm component', () => {
@@ -39,5 +40,30 @@ describe('NewFeatureForm component', () => {
     const redirect = wrapper.find('Redirect')
 
     expect(redirect.exists()).toEqual(false)
+  })
+
+  describe('handleSubmit', () => {
+    beforeEach(() => {
+      sandbox.stub(client, 'post').resolves({status: 201})
+    })
+
+    it('calls client post', async () => {
+      const wrapper = shallow(<NewFeatureForm {...props} />)
+      const expectedResource = 'features'
+      const expectedPayload = {
+        applicationId: 99,
+        name: 'new_feature'
+      }
+      const fakeEvent = {
+        preventDefault: () => {}
+      }
+      wrapper.setState({
+        name: 'new_feature'
+      })
+
+      await wrapper.instance().handleSubmit(fakeEvent)
+
+      sinon.assert.calledWith(client.post, expectedResource, expectedPayload)
+    })
   })
 })
